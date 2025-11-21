@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
-import { User, onAuthStateChanged, signOut } from "firebase/auth";
+import { User, onAuthStateChanged, signOut, browserLocalPersistence } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 
 interface AuthContextType {
@@ -23,12 +23,25 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-            setUser(user);
-            setLoading(false);
-        });
+        const initializeAuth = async () => {
+            try {
+                await auth.setPersistence(browserLocalPersistence);
+            } catch (error) {
+                console.error("Error setting persistence:", error);
+            }
 
-        return () => unsubscribe();
+            const unsubscribe = onAuthStateChanged(auth, (user) => {
+                setUser(user);
+                setLoading(false);
+            });
+            return unsubscribe;
+        };
+
+        const unsubscribePromise = initializeAuth();
+
+        return () => {
+            unsubscribePromise.then(unsubscribe => unsubscribe && unsubscribe());
+        };
     }, []);
 
     const logout = async () => {

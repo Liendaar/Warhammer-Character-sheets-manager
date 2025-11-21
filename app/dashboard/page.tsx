@@ -42,7 +42,7 @@ export default function Dashboard() {
         try {
             const newChar = { ...initialCharacter, userId: user.uid };
             const docRef = await addDoc(collection(db, "characters"), newChar);
-            router.push(`/character?id=${docRef.id}`);
+            router.push(`/character/?id=${docRef.id}`);
         } catch (e: any) {
             console.error("Error creating character:", e);
             alert("Error creating character: " + e.message);
@@ -111,7 +111,7 @@ export default function Dashboard() {
                                                 <p className="mt-1 text-sm text-gray-500">{char.species} {char.class} - {char.career}</p>
                                             </div>
                                             <div className="px-4 py-4 sm:px-6 flex justify-between">
-                                                <Link href={`/character?id=${char.id}`} className="text-blue-600 hover:text-blue-500 font-medium">
+                                                <Link href={`/character/?id=${char.id}`} className="text-blue-600 hover:text-blue-500 font-medium">
                                                     Edit
                                                 </Link>
                                                 <button onClick={() => char.id && handleDelete(char.id)} className="text-red-600 hover:text-red-500 font-medium">
