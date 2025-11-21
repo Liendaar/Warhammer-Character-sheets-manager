@@ -43,8 +43,9 @@ export default function Dashboard() {
             const newChar = { ...initialCharacter, userId: user.uid };
             const docRef = await addDoc(collection(db, "characters"), newChar);
             router.push(`/character/${docRef.id}`);
-        } catch (e) {
+        } catch (e: any) {
             console.error("Error creating character:", e);
+            alert("Error creating character: " + e.message);
             setCreating(false);
         }
     };
