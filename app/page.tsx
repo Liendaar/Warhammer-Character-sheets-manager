@@ -10,6 +10,7 @@ import { auth } from "@/lib/firebase";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import Link from "next/link";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function LoginPage() {
   const [isLogin, setIsLogin] = useState(true);
@@ -18,6 +19,21 @@ export default function LoginPage() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+
+  const { loginWithGoogle } = useAuth();
+
+  const handleGoogleLogin = async () => {
+    setError("");
+    setLoading(true);
+    try {
+      await loginWithGoogle();
+      router.push("/dashboard");
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -86,6 +102,36 @@ export default function LoginPage() {
             </Button>
           </div>
         </form>
+
+        <div className="mt-6">
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-[var(--border-sepia)]" />
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="bg-[var(--bg-paper)] px-2 text-[var(--text-muted)]">
+                Or continue with
+              </span>
+            </div>
+          </div>
+
+          <div className="mt-6">
+            <Button
+              onClick={handleGoogleLogin}
+              variant="secondary"
+              className="w-full flex items-center justify-center gap-2"
+              disabled={loading}
+            >
+              <svg className="h-5 w-5" aria-hidden="true" viewBox="0 0 24 24">
+                <path
+                  d="M12.0003 20.45c4.656 0 8.556-3.21 9.972-7.59h-9.972v-4.14h14.64c.15 1.05.24 2.13.24 3.24 0 8.37-5.94 14.4-14.88 14.4-8.61 0-15.6-6.99-15.6-15.6 0-8.61 6.99-15.6 15.6-15.6 4.17 0 7.92 1.53 10.83 4.02l-3.99 3.99c-1.5-1.17-3.87-2.1-6.84-2.1-5.73 0-10.44 4.65-10.44 10.38 0 5.73 4.71 10.38 10.44 10.38z"
+                  fill="currentColor"
+                />
+              </svg>
+              Sign in with Google
+            </Button>
+          </div>
+        </div>
 
         <div className="text-center">
           <button

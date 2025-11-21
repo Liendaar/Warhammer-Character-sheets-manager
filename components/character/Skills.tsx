@@ -36,19 +36,19 @@ export function Skills({ skills, onChange, type }: Props) {
 
     return (
         <div>
-            <div className="flex justify-between items-center mb-2">
-                <h3 className="text-md font-semibold">{type} Skills</h3>
+            <div className="flex justify-between items-center mb-4">
+                <h3 className="text-lg font-bold text-[var(--accent-red)] font-[family-name:var(--font-heading)]">{type} Skills</h3>
             </div>
-            <table className="min-w-full divide-y divide-gray-200 text-sm">
-                <thead className="bg-gray-50">
+            <table className="min-w-full divide-y divide-[var(--border-sepia)] text-sm">
+                <thead className="bg-[var(--bg-paper)]">
                     <tr>
-                        <th className="px-2 py-2 text-left">Name</th>
-                        <th className="px-2 py-2 text-left">Char</th>
-                        <th className="px-2 py-2 text-center">Adv</th>
+                        <th className="px-2 py-2 text-left font-bold text-[var(--text-ink)] font-[family-name:var(--font-heading)]">Name</th>
+                        <th className="px-2 py-2 text-left font-bold text-[var(--text-ink)] font-[family-name:var(--font-heading)]">Char</th>
+                        <th className="px-2 py-2 text-center font-bold text-[var(--text-ink)] font-[family-name:var(--font-heading)]">Adv</th>
                         <th className="px-2 py-2"></th>
                     </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
+                <tbody className="divide-y divide-[var(--border-sepia)]">
                     {skills.map((skill, index) => (
                         <tr key={index}>
                             <td className="px-2 py-1">
@@ -56,14 +56,14 @@ export function Skills({ skills, onChange, type }: Props) {
                                     type="text"
                                     value={skill.name}
                                     onChange={(e) => handleUpdateSkill(index, "name", e.target.value)}
-                                    className="w-full border rounded p-1"
+                                    className="input-parchment w-full"
                                 />
                             </td>
                             <td className="px-2 py-1">
                                 <select
                                     value={skill.characteristic}
                                     onChange={(e) => handleUpdateSkill(index, "characteristic", e.target.value)}
-                                    className="border rounded p-1"
+                                    className="input-parchment w-full bg-transparent"
                                 >
                                     {["WS", "BS", "S", "T", "I", "Ag", "Dex", "Int", "WP", "Fel"].map((c) => (
                                         <option key={c} value={c}>{c}</option>
@@ -75,32 +75,32 @@ export function Skills({ skills, onChange, type }: Props) {
                                     type="number"
                                     value={skill.advances}
                                     onChange={(e) => handleUpdateSkill(index, "advances", parseInt(e.target.value) || 0)}
-                                    className="w-12 text-center border rounded p-1"
+                                    className="input-parchment w-12 text-center"
                                 />
                             </td>
                             <td className="px-2 py-1 text-right">
-                                <button onClick={() => handleDeleteSkill(index)} className="text-red-600 hover:text-red-800">
+                                <button onClick={() => handleDeleteSkill(index)} className="text-[var(--accent-red)] hover:text-[#6d1616] font-bold">
                                     &times;
                                 </button>
                             </td>
                         </tr>
                     ))}
                     {/* Add New Row */}
-                    <tr className="bg-gray-50">
+                    <tr className="bg-[var(--bg-parchment)]/50">
                         <td className="px-2 py-1">
                             <input
                                 type="text"
                                 placeholder="New Skill"
                                 value={newSkillName}
                                 onChange={(e) => setNewSkillName(e.target.value)}
-                                className="w-full border rounded p-1"
+                                className="input-parchment w-full"
                             />
                         </td>
                         <td className="px-2 py-1">
                             <select
                                 value={newSkillChar}
                                 onChange={(e) => setNewSkillChar(e.target.value as CharacteristicName)}
-                                className="border rounded p-1"
+                                className="input-parchment w-full bg-transparent"
                             >
                                 {["WS", "BS", "S", "T", "I", "Ag", "Dex", "Int", "WP", "Fel"].map((c) => (
                                     <option key={c} value={c}>{c}</option>

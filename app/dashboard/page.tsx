@@ -69,14 +69,14 @@ export default function Dashboard() {
     }
 
     return (
-        <div className="min-h-screen bg-gray-100">
-            <header className="bg-white shadow">
+        <div className="min-h-screen">
+            <header className="bg-[var(--bg-paper)] shadow border-b border-[var(--border-sepia)]">
                 <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 flex justify-between items-center">
-                    <h1 className="text-3xl font-bold tracking-tight text-gray-900">
+                    <h1 className="text-3xl font-bold tracking-tight text-[var(--accent-red)] font-[family-name:var(--font-heading)]">
                         My Characters
                     </h1>
                     <div className="flex items-center gap-4">
-                        <span className="text-sm text-gray-500">{user.email}</span>
+                        <span className="text-sm text-[var(--text-muted)] font-[family-name:var(--font-ui)]">{user.email}</span>
                         <Button onClick={logout} variant="secondary" size="sm">
                             Sign out
                         </Button>
@@ -87,9 +87,9 @@ export default function Dashboard() {
                 <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
                     <div className="px-4 py-6 sm:px-0">
                         {characters.length === 0 ? (
-                            <div className="rounded-lg border-4 border-dashed border-gray-200 p-12 text-center">
-                                <h3 className="mt-2 text-sm font-semibold text-gray-900">No characters</h3>
-                                <p className="mt-1 text-sm text-gray-500">Get started by creating a new character.</p>
+                            <div className="rounded-sm border-4 border-dashed border-[var(--border-sepia)] p-12 text-center bg-[var(--bg-paper)]">
+                                <h3 className="mt-2 text-lg font-bold text-[var(--text-ink)] font-[family-name:var(--font-heading)]">No characters</h3>
+                                <p className="mt-1 text-sm text-[var(--text-muted)]">Get started by creating a new character.</p>
                                 <div className="mt-6">
                                     <Button onClick={handleCreate} disabled={creating}>
                                         {creating ? "Creating..." : "Create Character"}
@@ -103,18 +103,18 @@ export default function Dashboard() {
                                         {creating ? "Creating..." : "Create New Character"}
                                     </Button>
                                 </div>
-                                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                                     {characters.map((char) => (
-                                        <div key={char.id} className="bg-white overflow-hidden shadow rounded-lg divide-y divide-gray-200">
-                                            <div className="px-4 py-5 sm:p-6">
-                                                <h3 className="text-lg font-medium leading-6 text-gray-900">{char.name}</h3>
-                                                <p className="mt-1 text-sm text-gray-500">{char.species} {char.class} - {char.career}</p>
+                                        <div key={char.id} className="card hover:shadow-lg transition-shadow">
+                                            <div className="mb-4">
+                                                <h3 className="text-xl font-bold leading-6 text-[var(--accent-red)] font-[family-name:var(--font-heading)]">{char.name}</h3>
+                                                <p className="mt-1 text-sm text-[var(--text-muted)] font-[family-name:var(--font-ui)]">{char.species} {char.class} - {char.career}</p>
                                             </div>
-                                            <div className="px-4 py-4 sm:px-6 flex justify-between">
-                                                <Link href={`/character/?id=${char.id}`} className="text-blue-600 hover:text-blue-500 font-medium">
+                                            <div className="flex justify-between items-center border-t border-[var(--border-sepia)] pt-4">
+                                                <Link href={`/character/?id=${char.id}`} className="text-[var(--accent-gold)] hover:text-[var(--accent-red)] font-bold font-[family-name:var(--font-heading)] uppercase tracking-wider text-sm">
                                                     Edit
                                                 </Link>
-                                                <button onClick={() => char.id && handleDelete(char.id)} className="text-red-600 hover:text-red-500 font-medium">
+                                                <button onClick={() => char.id && handleDelete(char.id)} className="text-[var(--accent-red)] hover:text-[#6d1616] font-bold font-[family-name:var(--font-heading)] uppercase tracking-wider text-sm">
                                                     Delete
                                                 </button>
                                             </div>

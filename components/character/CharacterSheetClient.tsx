@@ -82,32 +82,32 @@ export function CharacterSheetClient() {
     }
 
     return (
-        <div className="min-h-screen bg-gray-100 pb-20">
+        <div className="min-h-screen pb-20">
             {/* Header / Toolbar */}
-            <div className="sticky top-0 z-10 bg-white shadow-sm p-4 flex justify-between items-center">
+            <div className="sticky top-0 z-10 bg-[var(--bg-paper)] border-b border-[var(--border-sepia)] shadow-md p-4 flex justify-between items-center">
                 <div className="flex items-center gap-4">
                     <Button variant="secondary" size="sm" onClick={() => router.push("/dashboard")}>
                         &larr; Back
                     </Button>
-                    <h1 className="text-xl font-bold">{character.name}</h1>
+                    <h1 className="text-2xl font-bold text-[var(--accent-red)] font-[family-name:var(--font-heading)]">{character.name}</h1>
                 </div>
-                <div className="flex items-center gap-2 text-sm text-gray-500">
+                <div className="flex items-center gap-2 text-sm text-[var(--text-muted)] font-[family-name:var(--font-ui)]">
                     {saving ? "Saving..." : lastSaved ? `Saved ${lastSaved.toLocaleTimeString()}` : "All changes saved"}
                 </div>
             </div>
 
             <div className="max-w-5xl mx-auto p-4 space-y-6">
                 {/* Tabs */}
-                <div className="border-b border-gray-200">
-                    <nav className="-mb-px flex space-x-8" aria-label="Tabs">
+                <div className="border-b border-[var(--border-sepia)]">
+                    <nav className="-mb-px flex space-x-4" aria-label="Tabs">
                         {["main", "skills", "combat", "trappings", "notes"].map((tab) => (
                             <button
                                 key={tab}
                                 onClick={() => setActiveTab(tab)}
                                 className={`${activeTab === tab
-                                    ? "border-blue-500 text-blue-600"
-                                    : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
-                                    } whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm capitalize`}
+                                    ? "border-[var(--accent-red)] text-[var(--accent-red)] bg-[var(--bg-paper)]"
+                                    : "border-transparent text-[var(--text-muted)] hover:text-[var(--text-ink)] hover:border-[var(--border-sepia)]"
+                                    } whitespace-nowrap py-3 px-6 border-b-2 font-bold text-lg capitalize font-[family-name:var(--font-heading)] transition-colors rounded-t-sm`}
                             >
                                 {tab}
                             </button>
@@ -118,75 +118,75 @@ export function CharacterSheetClient() {
                 {/* Main Content */}
                 {activeTab === "main" && (
                     <>
-                        <div className="bg-white shadow rounded-lg p-6">
-                            <h2 className="text-lg font-semibold mb-4">Personal Details</h2>
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div className="card">
+                            <h2 className="text-xl font-bold mb-6 border-b border-[var(--border-sepia)] pb-2">Personal Details</h2>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700">Name</label>
+                                    <label className="block text-sm font-bold text-[var(--text-ink)] mb-1 font-[family-name:var(--font-heading)]">Name</label>
                                     <input
                                         type="text"
                                         value={character.name}
                                         onChange={(e) => updateCharacter({ name: e.target.value })}
-                                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border p-2"
+                                        className="input-parchment w-full"
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700">Species</label>
+                                    <label className="block text-sm font-bold text-[var(--text-ink)] mb-1 font-[family-name:var(--font-heading)]">Species</label>
                                     <input
                                         type="text"
                                         value={character.species}
                                         onChange={(e) => updateCharacter({ species: e.target.value })}
-                                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border p-2"
+                                        className="input-parchment w-full"
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700">Class</label>
+                                    <label className="block text-sm font-bold text-[var(--text-ink)] mb-1 font-[family-name:var(--font-heading)]">Class</label>
                                     <input
                                         type="text"
                                         value={character.class}
                                         onChange={(e) => updateCharacter({ class: e.target.value })}
-                                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border p-2"
+                                        className="input-parchment w-full"
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700">Career</label>
+                                    <label className="block text-sm font-bold text-[var(--text-ink)] mb-1 font-[family-name:var(--font-heading)]">Career</label>
                                     <input
                                         type="text"
                                         value={character.career}
                                         onChange={(e) => updateCharacter({ career: e.target.value })}
-                                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border p-2"
+                                        className="input-parchment w-full"
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700">Career Level</label>
+                                    <label className="block text-sm font-bold text-[var(--text-ink)] mb-1 font-[family-name:var(--font-heading)]">Career Level</label>
                                     <input
                                         type="text"
                                         value={character.careerLevel}
                                         onChange={(e) => updateCharacter({ careerLevel: e.target.value })}
-                                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border p-2"
+                                        className="input-parchment w-full"
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700">Status</label>
+                                    <label className="block text-sm font-bold text-[var(--text-ink)] mb-1 font-[family-name:var(--font-heading)]">Status</label>
                                     <input
                                         type="text"
                                         value={character.status}
                                         onChange={(e) => updateCharacter({ status: e.target.value })}
-                                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm border p-2"
+                                        className="input-parchment w-full"
                                     />
                                 </div>
                             </div>
                         </div>
 
-                        <div className="bg-white shadow rounded-lg p-6">
-                            <h2 className="text-lg font-semibold mb-4">Characteristics</h2>
+                        <div className="card">
+                            <h2 className="text-xl font-bold mb-6 border-b border-[var(--border-sepia)] pb-2">Characteristics</h2>
                             <Characteristics
                                 characteristics={character.characteristics}
                                 onChange={(newChars) => updateCharacter({ characteristics: newChars })}
                             />
                         </div>
 
-                        <div className="bg-white shadow rounded-lg p-6">
+                        <div className="card">
                             <Talents
                                 talents={character.talents || []}
                                 onChange={(newTalents) => updateCharacter({ talents: newTalents })}
@@ -197,14 +197,14 @@ export function CharacterSheetClient() {
 
                 {activeTab === "skills" && (
                     <div className="space-y-6">
-                        <div className="bg-white shadow rounded-lg p-6">
+                        <div className="card">
                             <Skills
                                 type="Basic"
                                 skills={character.basicSkills || []}
                                 onChange={(newSkills) => updateCharacter({ basicSkills: newSkills })}
                             />
                         </div>
-                        <div className="bg-white shadow rounded-lg p-6">
+                        <div className="card">
                             <Skills
                                 type="Advanced"
                                 skills={character.advancedSkills || []}
@@ -215,7 +215,7 @@ export function CharacterSheetClient() {
                 )}
 
                 {activeTab === "combat" && (
-                    <div className="bg-white shadow rounded-lg p-6">
+                    <div className="card">
                         <Combat
                             weapons={character.weapons || []}
                             armor={character.armor || []}
@@ -226,7 +226,7 @@ export function CharacterSheetClient() {
                 )}
 
                 {activeTab === "trappings" && (
-                    <div className="bg-white shadow rounded-lg p-6">
+                    <div className="card">
                         <Trappings
                             trappings={character.trappings || []}
                             money={character.money || { gc: 0, ss: 0, bp: 0 }}
@@ -237,11 +237,11 @@ export function CharacterSheetClient() {
                 )}
 
                 {activeTab === "notes" && (
-                    <div className="bg-white shadow rounded-lg p-6">
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Notes</label>
+                    <div className="card">
+                        <label className="block text-sm font-bold text-[var(--text-ink)] mb-2 font-[family-name:var(--font-heading)]">Notes</label>
                         <textarea
                             rows={10}
-                            className="w-full border rounded p-2"
+                            className="w-full border border-[var(--border-sepia)] rounded p-2 bg-transparent focus:border-[var(--accent-red)] focus:outline-none"
                             value={character.notes}
                             onChange={(e) => updateCharacter({ notes: e.target.value })}
                         />

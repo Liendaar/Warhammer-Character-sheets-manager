@@ -40,7 +40,7 @@ export function Characteristics({ characteristics, onChange }: Props) {
                                     type="number"
                                     value={value.initial}
                                     onChange={(e) => handleChange(key as CharacteristicName, "initial", e.target.value)}
-                                    className="w-12 text-center border rounded p-1"
+                                    className="input-parchment w-12 text-center"
                                 />
                             </td>
                         ))}
@@ -53,7 +53,7 @@ export function Characteristics({ characteristics, onChange }: Props) {
                                     type="number"
                                     value={value.advances}
                                     onChange={(e) => handleChange(key as CharacteristicName, "advances", e.target.value)}
-                                    className="w-12 text-center border rounded p-1"
+                                    className="input-parchment w-12 text-center"
                                 />
                             </td>
                         ))}
