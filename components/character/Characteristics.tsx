@@ -20,48 +20,48 @@ export function Characteristics({ characteristics, onChange }: Props) {
 
     return (
         <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200 text-center text-sm">
-                <thead className="bg-gray-50">
+            <table className="min-w-full divide-y divide-[var(--border-dark)] text-center text-sm">
+                <thead className="bg-[var(--bg-hover)]">
                     <tr>
                         <th className="px-2 py-2"></th>
                         {Object.keys(characteristics).map((key) => (
-                            <th key={key} className="px-2 py-2 font-bold text-gray-700 uppercase">
+                            <th key={key} className="px-2 py-2 font-bold text-[var(--text-light)] uppercase">
                                 {key}
                             </th>
                         ))}
                     </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
+                <tbody className="bg-[var(--bg-card)] divide-y divide-[var(--border-dark)]">
                     <tr>
-                        <td className="px-2 py-2 font-medium text-gray-900">Initial</td>
+                        <td className="px-2 py-2 font-medium text-[var(--text-light)]">Initial</td>
                         {Object.entries(characteristics).map(([key, value]) => (
                             <td key={key} className="px-1 py-1">
                                 <input
                                     type="number"
                                     value={value.initial}
                                     onChange={(e) => handleChange(key as CharacteristicName, "initial", e.target.value)}
-                                    className="input-parchment w-12 text-center"
+                                    className="input-dark w-12 text-center bg-transparent border-none focus:ring-0 p-0"
                                 />
                             </td>
                         ))}
                     </tr>
                     <tr>
-                        <td className="px-2 py-2 font-medium text-gray-900">Advances</td>
+                        <td className="px-2 py-2 font-medium text-[var(--text-light)]">Advances</td>
                         {Object.entries(characteristics).map(([key, value]) => (
                             <td key={key} className="px-1 py-1">
                                 <input
                                     type="number"
                                     value={value.advances}
                                     onChange={(e) => handleChange(key as CharacteristicName, "advances", e.target.value)}
-                                    className="input-parchment w-12 text-center"
+                                    className="input-dark w-12 text-center bg-transparent border-none focus:ring-0 p-0"
                                 />
                             </td>
                         ))}
                     </tr>
-                    <tr className="bg-gray-100 font-bold">
-                        <td className="px-2 py-2 text-gray-900">Total</td>
+                    <tr className="bg-[var(--bg-hover)] font-bold">
+                        <td className="px-2 py-2 text-[var(--text-light)]">Total</td>
                         {Object.keys(characteristics).map((key) => (
-                            <td key={key} className="px-2 py-2">
+                            <td key={key} className="px-2 py-2 text-[var(--accent-green)]">
                                 {calculateTotal(key as CharacteristicName)}
                             </td>
                         ))}

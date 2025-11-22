@@ -34,6 +34,8 @@ jobs:
         run: npm test
 
       - name: Build
+        env:
+          NEXT_PUBLIC_FIREBASE_API_KEY: ${{ secrets.NEXT_PUBLIC_FIREBASE_API_KEY }}
         run: npm run build
 
       # Create 404.html for client-side routing on GitHub Pages

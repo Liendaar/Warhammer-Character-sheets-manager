@@ -29,7 +29,7 @@ export function Combat({ weapons, armor, onWeaponsChange, onArmorChange }: Props
         setNewWeaponName("");
     };
 
-    const handleUpdateWeapon = (index: number, field: keyof Weapon, value: any) => {
+    const handleUpdateWeapon = (index: number, field: keyof Weapon, value: string | number | string[]) => {
         const newWeapons = [...weapons];
         newWeapons[index] = { ...newWeapons[index], [field]: value };
         onWeaponsChange(newWeapons);
@@ -54,7 +54,7 @@ export function Combat({ weapons, armor, onWeaponsChange, onArmorChange }: Props
         setNewArmorName("");
     };
 
-    const handleUpdateArmor = (index: number, field: keyof Armor, value: any) => {
+    const handleUpdateArmor = (index: number, field: keyof Armor, value: string | number | string[]) => {
         const newArmor = [...armor];
         newArmor[index] = { ...newArmor[index], [field]: value };
         onArmorChange(newArmor);
@@ -68,19 +68,19 @@ export function Combat({ weapons, armor, onWeaponsChange, onArmorChange }: Props
         <div className="space-y-8">
             {/* Weapons Section */}
             <div>
-                <h3 className="text-md font-semibold mb-2">Weapons</h3>
+                <h3 className="text-md font-semibold mb-2 text-[var(--text-light)]">Weapons</h3>
                 <div className="overflow-x-auto">
-                    <table className="min-w-full divide-y divide-gray-200 text-sm">
-                        <thead className="bg-gray-50">
+                    <table className="min-w-full divide-y divide-[var(--border-dark)] text-sm">
+                        <thead className="bg-[var(--bg-hover)]">
                             <tr>
-                                <th className="px-2 py-2 text-left">Name</th>
-                                <th className="px-2 py-2 text-left">Group</th>
-                                <th className="px-2 py-2 text-center">Dmg</th>
-                                <th className="px-2 py-2 text-center">Rng</th>
+                                <th className="px-2 py-2 text-left font-bold text-[var(--text-light)]">Name</th>
+                                <th className="px-2 py-2 text-left font-bold text-[var(--text-light)]">Group</th>
+                                <th className="px-2 py-2 text-center font-bold text-[var(--text-light)]">Dmg</th>
+                                <th className="px-2 py-2 text-center font-bold text-[var(--text-light)]">Rng</th>
                                 <th className="px-2 py-2"></th>
                             </tr>
                         </thead>
-                        <tbody className="bg-white divide-y divide-gray-200">
+                        <tbody className="bg-[var(--bg-card)] divide-y divide-[var(--border-dark)]">
                             {weapons.map((weapon, index) => (
                                 <tr key={weapon.id}>
                                     <td className="px-2 py-1">
@@ -88,7 +88,7 @@ export function Combat({ weapons, armor, onWeaponsChange, onArmorChange }: Props
                                             type="text"
                                             value={weapon.name}
                                             onChange={(e) => handleUpdateWeapon(index, "name", e.target.value)}
-                                            className="w-full border rounded p-1"
+                                            className="input-dark w-full bg-transparent border-none focus:ring-0 p-0"
                                         />
                                     </td>
                                     <td className="px-2 py-1">
@@ -96,7 +96,7 @@ export function Combat({ weapons, armor, onWeaponsChange, onArmorChange }: Props
                                             type="text"
                                             value={weapon.group}
                                             onChange={(e) => handleUpdateWeapon(index, "group", e.target.value)}
-                                            className="w-24 border rounded p-1"
+                                            className="input-dark w-24 bg-transparent border-none focus:ring-0 p-0"
                                         />
                                     </td>
                                     <td className="px-2 py-1">
@@ -104,7 +104,7 @@ export function Combat({ weapons, armor, onWeaponsChange, onArmorChange }: Props
                                             type="text"
                                             value={weapon.damage}
                                             onChange={(e) => handleUpdateWeapon(index, "damage", e.target.value)}
-                                            className="w-16 text-center border rounded p-1"
+                                            className="input-dark w-16 text-center bg-transparent border-none focus:ring-0 p-0"
                                         />
                                     </td>
                                     <td className="px-2 py-1">
@@ -112,24 +112,24 @@ export function Combat({ weapons, armor, onWeaponsChange, onArmorChange }: Props
                                             type="text"
                                             value={weapon.range}
                                             onChange={(e) => handleUpdateWeapon(index, "range", e.target.value)}
-                                            className="w-20 text-center border rounded p-1"
+                                            className="input-dark w-20 text-center bg-transparent border-none focus:ring-0 p-0"
                                         />
                                     </td>
                                     <td className="px-2 py-1 text-right">
-                                        <button onClick={() => handleDeleteWeapon(index)} className="text-red-600 hover:text-red-800">
+                                        <button onClick={() => handleDeleteWeapon(index)} className="text-[var(--text-muted)] hover:text-[var(--error-red)] font-bold">
                                             &times;
                                         </button>
                                     </td>
                                 </tr>
                             ))}
-                            <tr className="bg-gray-50">
+                            <tr className="bg-[var(--bg-hover)]/50">
                                 <td className="px-2 py-1">
                                     <input
                                         type="text"
                                         placeholder="New Weapon"
                                         value={newWeaponName}
                                         onChange={(e) => setNewWeaponName(e.target.value)}
-                                        className="w-full border rounded p-1"
+                                        className="input-dark w-full bg-transparent border-none focus:ring-0 p-0 placeholder-[var(--text-muted)]"
                                     />
                                 </td>
                                 <td colSpan={3} className="px-2 py-1 text-center">
@@ -146,18 +146,18 @@ export function Combat({ weapons, armor, onWeaponsChange, onArmorChange }: Props
 
             {/* Armor Section */}
             <div>
-                <h3 className="text-md font-semibold mb-2">Armor</h3>
+                <h3 className="text-md font-semibold mb-2 text-[var(--text-light)]">Armor</h3>
                 <div className="overflow-x-auto">
-                    <table className="min-w-full divide-y divide-gray-200 text-sm">
-                        <thead className="bg-gray-50">
+                    <table className="min-w-full divide-y divide-[var(--border-dark)] text-sm">
+                        <thead className="bg-[var(--bg-hover)]">
                             <tr>
-                                <th className="px-2 py-2 text-left">Name</th>
-                                <th className="px-2 py-2 text-left">Locations</th>
-                                <th className="px-2 py-2 text-center">AP</th>
+                                <th className="px-2 py-2 text-left font-bold text-[var(--text-light)]">Name</th>
+                                <th className="px-2 py-2 text-left font-bold text-[var(--text-light)]">Locations</th>
+                                <th className="px-2 py-2 text-center font-bold text-[var(--text-light)]">AP</th>
                                 <th className="px-2 py-2"></th>
                             </tr>
                         </thead>
-                        <tbody className="bg-white divide-y divide-gray-200">
+                        <tbody className="bg-[var(--bg-card)] divide-y divide-[var(--border-dark)]">
                             {armor.map((item, index) => (
                                 <tr key={item.id}>
                                     <td className="px-2 py-1">
@@ -165,7 +165,7 @@ export function Combat({ weapons, armor, onWeaponsChange, onArmorChange }: Props
                                             type="text"
                                             value={item.name}
                                             onChange={(e) => handleUpdateArmor(index, "name", e.target.value)}
-                                            className="w-full border rounded p-1"
+                                            className="input-dark w-full bg-transparent border-none focus:ring-0 p-0"
                                         />
                                     </td>
                                     <td className="px-2 py-1">
@@ -173,7 +173,7 @@ export function Combat({ weapons, armor, onWeaponsChange, onArmorChange }: Props
                                             type="text"
                                             value={item.locations.join(", ")}
                                             onChange={(e) => handleUpdateArmor(index, "locations", e.target.value.split(",").map(s => s.trim()))}
-                                            className="w-full border rounded p-1"
+                                            className="input-dark w-full bg-transparent border-none focus:ring-0 p-0"
                                         />
                                     </td>
                                     <td className="px-2 py-1">
@@ -181,24 +181,24 @@ export function Combat({ weapons, armor, onWeaponsChange, onArmorChange }: Props
                                             type="number"
                                             value={item.ap}
                                             onChange={(e) => handleUpdateArmor(index, "ap", parseInt(e.target.value) || 0)}
-                                            className="w-16 text-center border rounded p-1"
+                                            className="input-dark w-16 text-center bg-transparent border-none focus:ring-0 p-0"
                                         />
                                     </td>
                                     <td className="px-2 py-1 text-right">
-                                        <button onClick={() => handleDeleteArmor(index)} className="text-red-600 hover:text-red-800">
+                                        <button onClick={() => handleDeleteArmor(index)} className="text-[var(--text-muted)] hover:text-[var(--error-red)] font-bold">
                                             &times;
                                         </button>
                                     </td>
                                 </tr>
                             ))}
-                            <tr className="bg-gray-50">
+                            <tr className="bg-[var(--bg-hover)]/50">
                                 <td className="px-2 py-1">
                                     <input
                                         type="text"
                                         placeholder="New Armor"
                                         value={newArmorName}
                                         onChange={(e) => setNewArmorName(e.target.value)}
-                                        className="w-full border rounded p-1"
+                                        className="input-dark w-full bg-transparent border-none focus:ring-0 p-0 placeholder-[var(--text-muted)]"
                                     />
                                 </td>
                                 <td colSpan={2} className="px-2 py-1 text-center">

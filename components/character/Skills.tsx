@@ -23,7 +23,7 @@ export function Skills({ skills, onChange, type }: Props) {
         setNewSkillName("");
     };
 
-    const handleUpdateSkill = (index: number, field: keyof Skill, value: any) => {
+    const handleUpdateSkill = (index: number, field: keyof Skill, value: string | number) => {
         const newSkills = [...skills];
         newSkills[index] = { ...newSkills[index], [field]: value };
         onChange(newSkills);
@@ -37,18 +37,18 @@ export function Skills({ skills, onChange, type }: Props) {
     return (
         <div>
             <div className="flex justify-between items-center mb-4">
-                <h3 className="text-lg font-bold text-[var(--accent-red)] font-[family-name:var(--font-heading)]">{type} Skills</h3>
+                <h3 className="text-lg font-bold text-[var(--text-light)]">{type} Skills</h3>
             </div>
-            <table className="min-w-full divide-y divide-[var(--border-sepia)] text-sm">
-                <thead className="bg-[var(--bg-paper)]">
+            <table className="min-w-full divide-y divide-[var(--border-dark)] text-sm">
+                <thead className="bg-[var(--bg-hover)]">
                     <tr>
-                        <th className="px-2 py-2 text-left font-bold text-[var(--text-ink)] font-[family-name:var(--font-heading)]">Name</th>
-                        <th className="px-2 py-2 text-left font-bold text-[var(--text-ink)] font-[family-name:var(--font-heading)]">Char</th>
-                        <th className="px-2 py-2 text-center font-bold text-[var(--text-ink)] font-[family-name:var(--font-heading)]">Adv</th>
+                        <th className="px-2 py-2 text-left font-bold text-[var(--text-light)]">Name</th>
+                        <th className="px-2 py-2 text-left font-bold text-[var(--text-light)]">Char</th>
+                        <th className="px-2 py-2 text-center font-bold text-[var(--text-light)]">Adv</th>
                         <th className="px-2 py-2"></th>
                     </tr>
                 </thead>
-                <tbody className="divide-y divide-[var(--border-sepia)]">
+                <tbody className="divide-y divide-[var(--border-dark)]">
                     {skills.map((skill, index) => (
                         <tr key={index}>
                             <td className="px-2 py-1">
@@ -56,17 +56,17 @@ export function Skills({ skills, onChange, type }: Props) {
                                     type="text"
                                     value={skill.name}
                                     onChange={(e) => handleUpdateSkill(index, "name", e.target.value)}
-                                    className="input-parchment w-full"
+                                    className="input-dark w-full bg-transparent border-none focus:ring-0 p-0"
                                 />
                             </td>
                             <td className="px-2 py-1">
                                 <select
                                     value={skill.characteristic}
                                     onChange={(e) => handleUpdateSkill(index, "characteristic", e.target.value)}
-                                    className="input-parchment w-full bg-transparent"
+                                    className="input-dark w-full bg-transparent border-none focus:ring-0 p-0"
                                 >
                                     {["WS", "BS", "S", "T", "I", "Ag", "Dex", "Int", "WP", "Fel"].map((c) => (
-                                        <option key={c} value={c}>{c}</option>
+                                        <option key={c} value={c} className="bg-[var(--bg-card)]">{c}</option>
                                     ))}
                                 </select>
                             </td>
@@ -75,35 +75,35 @@ export function Skills({ skills, onChange, type }: Props) {
                                     type="number"
                                     value={skill.advances}
                                     onChange={(e) => handleUpdateSkill(index, "advances", parseInt(e.target.value) || 0)}
-                                    className="input-parchment w-12 text-center"
+                                    className="input-dark w-12 text-center bg-transparent border-none focus:ring-0 p-0"
                                 />
                             </td>
                             <td className="px-2 py-1 text-right">
-                                <button onClick={() => handleDeleteSkill(index)} className="text-[var(--accent-red)] hover:text-[#6d1616] font-bold">
+                                <button onClick={() => handleDeleteSkill(index)} className="text-[var(--text-muted)] hover:text-[var(--error-red)] font-bold">
                                     &times;
                                 </button>
                             </td>
                         </tr>
                     ))}
                     {/* Add New Row */}
-                    <tr className="bg-[var(--bg-parchment)]/50">
+                    <tr className="bg-[var(--bg-hover)]/50">
                         <td className="px-2 py-1">
                             <input
                                 type="text"
                                 placeholder="New Skill"
                                 value={newSkillName}
                                 onChange={(e) => setNewSkillName(e.target.value)}
-                                className="input-parchment w-full"
+                                className="input-dark w-full bg-transparent border-none focus:ring-0 p-0 placeholder-[var(--text-muted)]"
                             />
                         </td>
                         <td className="px-2 py-1">
                             <select
                                 value={newSkillChar}
                                 onChange={(e) => setNewSkillChar(e.target.value as CharacteristicName)}
-                                className="input-parchment w-full bg-transparent"
+                                className="input-dark w-full bg-transparent border-none focus:ring-0 p-0"
                             >
                                 {["WS", "BS", "S", "T", "I", "Ag", "Dex", "Int", "WP", "Fel"].map((c) => (
-                                    <option key={c} value={c}>{c}</option>
+                                    <option key={c} value={c} className="bg-[var(--bg-card)]">{c}</option>
                                 ))}
                             </select>
                         </td>

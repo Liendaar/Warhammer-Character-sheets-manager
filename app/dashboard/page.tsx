@@ -9,6 +9,8 @@ import { Button } from "@/components/ui/Button";
 import { initialCharacter, Character } from "@/types/character";
 import Link from "next/link";
 
+import { Sidebar } from "@/components/Sidebar";
+
 export default function Dashboard() {
     const { user, loading, logout } = useAuth();
     const router = useRouter();
@@ -61,7 +63,7 @@ export default function Dashboard() {
     };
 
     if (loading) {
-        return <div className="flex min-h-screen items-center justify-center">Loading...</div>;
+        return <div className="flex min-h-screen items-center justify-center bg-[var(--bg-dark)] text-[var(--text-light)]">Loading...</div>;
     }
 
     if (!user) {
@@ -69,62 +71,58 @@ export default function Dashboard() {
     }
 
     return (
-        <div className="min-h-screen">
-            <header className="bg-[var(--bg-paper)] shadow border-b border-[var(--border-sepia)]">
-                <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 flex justify-between items-center">
-                    <h1 className="text-3xl font-bold tracking-tight text-[var(--accent-red)] font-[family-name:var(--font-heading)]">
+        <div className="flex min-h-screen bg-[var(--bg-dark)]">
+            <Sidebar />
+            <main className="flex-1 p-8">
+                <header className="mb-8 flex justify-between items-center">
+                    <h1 className="text-3xl font-bold text-[var(--text-light)]">
                         My Characters
                     </h1>
-                    <div className="flex items-center gap-4">
-                        <span className="text-sm text-[var(--text-muted)] font-[family-name:var(--font-ui)]">{user.email}</span>
-                        <Button onClick={logout} variant="secondary" size="sm">
-                            Sign out
-                        </Button>
+                    <Button onClick={handleCreate} disabled={creating}>
+                        {creating ? "Creating..." : "Create New Character"}
+                    </Button>
+                </header>
+
+                {characters.length === 0 ? (
+                    <div className="rounded-lg border-2 border-dashed border-[var(--border-dark)] p-12 text-center bg-[var(--bg-card)]">
+                        <h3 className="mt-2 text-lg font-bold text-[var(--text-light)]">No characters</h3>
+                        <p className="mt-1 text-sm text-[var(--text-muted)]">Get started by creating a new character.</p>
+                        <div className="mt-6">
+                            <Button onClick={handleCreate} disabled={creating}>
+                                {creating ? "Creating..." : "Create Character"}
+                            </Button>
+                        </div>
                     </div>
-                </div>
-            </header>
-            <main>
-                <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
-                    <div className="px-4 py-6 sm:px-0">
-                        {characters.length === 0 ? (
-                            <div className="rounded-sm border-4 border-dashed border-[var(--border-sepia)] p-12 text-center bg-[var(--bg-paper)]">
-                                <h3 className="mt-2 text-lg font-bold text-[var(--text-ink)] font-[family-name:var(--font-heading)]">No characters</h3>
-                                <p className="mt-1 text-sm text-[var(--text-muted)]">Get started by creating a new character.</p>
-                                <div className="mt-6">
-                                    <Button onClick={handleCreate} disabled={creating}>
-                                        {creating ? "Creating..." : "Create Character"}
-                                    </Button>
+                ) : (
+                    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                        {characters.map((char) => (
+                            <div key={char.id} className="card hover:bg-[var(--bg-hover)] transition-colors group relative">
+                                <div className="mb-4">
+                                    <h3 className="text-xl font-bold leading-6 text-[var(--text-light)] group-hover:text-[var(--accent-green)] transition-colors">
+                                        {char.name}
+                                    </h3>
+                                    <p className="mt-1 text-sm text-[var(--text-muted)]">
+                                        {char.species} {char.class} - {char.career}
+                                    </p>
+                                </div>
+                                <div className="flex justify-end gap-3 mt-4 pt-4 border-t border-[var(--border-dark)]">
+                                    <Link
+                                        href={`/character/?id=${char.id}`}
+                                        className="text-sm font-medium text-[var(--accent-green)] hover:text-[var(--accent-green-hover)]"
+                                    >
+                                        Edit
+                                    </Link>
+                                    <button
+                                        onClick={() => char.id && handleDelete(char.id)}
+                                        className="text-sm font-medium text-[var(--text-muted)] hover:text-[var(--error-red)] transition-colors"
+                                    >
+                                        Delete
+                                    </button>
                                 </div>
                             </div>
-                        ) : (
-                            <div className="space-y-4">
-                                <div className="flex justify-end">
-                                    <Button onClick={handleCreate} disabled={creating}>
-                                        {creating ? "Creating..." : "Create New Character"}
-                                    </Button>
-                                </div>
-                                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                                    {characters.map((char) => (
-                                        <div key={char.id} className="card hover:shadow-lg transition-shadow">
-                                            <div className="mb-4">
-                                                <h3 className="text-xl font-bold leading-6 text-[var(--accent-red)] font-[family-name:var(--font-heading)]">{char.name}</h3>
-                                                <p className="mt-1 text-sm text-[var(--text-muted)] font-[family-name:var(--font-ui)]">{char.species} {char.class} - {char.career}</p>
-                                            </div>
-                                            <div className="flex justify-between items-center border-t border-[var(--border-sepia)] pt-4">
-                                                <Link href={`/character/?id=${char.id}`} className="text-[var(--accent-gold)] hover:text-[var(--accent-red)] font-bold font-[family-name:var(--font-heading)] uppercase tracking-wider text-sm">
-                                                    Edit
-                                                </Link>
-                                                <button onClick={() => char.id && handleDelete(char.id)} className="text-[var(--accent-red)] hover:text-[#6d1616] font-bold font-[family-name:var(--font-heading)] uppercase tracking-wider text-sm">
-                                                    Delete
-                                                </button>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        )}
+                        ))}
                     </div>
-                </div>
+                )}
             </main>
         </div>
     );

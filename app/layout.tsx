@@ -1,19 +1,9 @@
 import type { Metadata } from "next";
-import { Cinzel, Crimson_Text, Lato } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/contexts/AuthContext";
 
-const cinzel = Cinzel({ subsets: ["latin"], variable: "--font-cinzel" });
-const crimson = Crimson_Text({
-  subsets: ["latin"],
-  weight: ["400", "600", "700"],
-  variable: "--font-crimson",
-});
-const lato = Lato({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-lato",
-});
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
   title: "WFRP 4e Manager",
@@ -27,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${cinzel.variable} ${crimson.variable} ${lato.variable} font-serif`}>
+      <body className={`${inter.variable} font-sans bg-[var(--bg-dark)] text-[var(--text-light)]`}>
         <AuthProvider>{children}</AuthProvider>
       </body>
     </html>

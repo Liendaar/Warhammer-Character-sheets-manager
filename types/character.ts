@@ -124,7 +124,7 @@ export interface Character {
     };
 
     spells: Spell[];
-    prayers: any[]; // Define if needed
+    prayers: unknown[]; // Define if needed
 
     notes: string;
 }
